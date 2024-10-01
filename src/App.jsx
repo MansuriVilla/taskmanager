@@ -58,7 +58,7 @@ function App() {
 
     navigator.clipboard
       .writeText(taskText.trim())
-      .then(() => alert("Today Update copied!"))
+      .then(() => alert("Copied Successfully!"))
       .catch((err) => console.error("Failed to copy text: ", err));
   };
 
