@@ -138,7 +138,7 @@ function App() {
         </form>
 
         <div className="task-item">
-          <h2>Today Update:</h2>
+          <h2>Today's Update:</h2>
           {tasks.length === 0 ? (
             <p>No tasks added yet.</p>
           ) : (
