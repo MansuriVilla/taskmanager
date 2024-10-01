@@ -42,7 +42,7 @@ function App() {
 
   // Handle copying task details with the correct format
   const handleCopyTask = () => {
-    let taskText = `Today Update:\n\n`;
+    let taskText = `Today's Update:\n\n`;
 
     tasks.forEach((task, index) => {
       taskText += `${index + 1}. ${task.taskName}`;
