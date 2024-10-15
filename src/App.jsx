@@ -41,26 +41,34 @@ function App() {
   };
 
   // Handle copying task details with the correct format
-  const handleCopyTask = () => {
-    let taskText = `Today's Update:\n\n`;
+// Handle copying task details with the correct format and date (DD-MM-YYYY)
+const handleCopyTask = () => {
+  const today = new Date();
+  const day = String(today.getDate()).padStart(2, "0");
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const year = today.getFullYear();
+  const formattedDate = `${day}-${month}-${year}`;
 
-    tasks.forEach((task, index) => {
-      taskText += `${index + 1}. ${task.taskName}`;
-      if (task.subtaskLinks.length > 0) {
-        task.subtaskLinks.forEach((link) => {
-          taskText += `\n   - ${link} = ${task.status}`;
-        });
-      } else {
-        taskText += ` = ${task.status}`;
-      }
-      taskText += `\n`;
-    });
+  let taskText = `Today's Update (${formattedDate}):\n\n`;
 
-    navigator.clipboard
-      .writeText(taskText.trim())
-      .then(() => alert("Copied Successfully!"))
-      .catch((err) => console.error("Failed to copy text: ", err));
-  };
+  tasks.forEach((task, index) => {
+    taskText += `${index + 1}. ${task.taskName}`;
+    if (task.subtaskLinks.length > 0) {
+      task.subtaskLinks.forEach((link) => {
+        taskText += `\n   - ${link} = ${task.status}`;
+      });
+    } else {
+      taskText += ` = ${task.status}`;
+    }
+    taskText += `\n`;
+  });
+
+  navigator.clipboard
+    .writeText(taskText.trim())
+    .then(() => alert("Copied Successfully!"))
+    .catch((err) => console.error("Failed to copy text: ", err));
+};
+
 
   // Toggle edit mode
   const handleEditTask = (index) => {
@@ -142,7 +150,7 @@ function App() {
           {tasks.length === 0 ? (
             <p>No tasks added yet.</p>
           ) : (
-            <div>
+            <div className="task-item_animation">
               {tasks.map((task, index) => (
                 <div key={index}>
                   {editingTaskIndex === index ? (
